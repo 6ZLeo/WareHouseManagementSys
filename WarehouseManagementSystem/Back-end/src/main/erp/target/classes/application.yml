@@ -1,0 +1,19 @@
+#spring.application.name=erp
+server:
+  port: 8081
+spring:
+  thymeleaf:
+    enabled: false
+  application:
+    name: erp
+  datasource:
+    url: jdbc:mysql://rm-cn-em93o3kwu00069ro.rwlb.rds.aliyuncs.com:3306/erp
+    username: fengxi
+    password: Asdf#1476
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
