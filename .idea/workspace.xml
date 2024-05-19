@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f9c9eb1-28c8-4514-a73a-2a9750df3ab3" name="更改" comment="第一次尝试commit" />
+    <list default="true" id="3f9c9eb1-28c8-4514-a73a-2a9750df3ab3" name="更改" comment="commit内容">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +14,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -54,7 +57,7 @@
       <workItem from="1715672484360" duration="1250000" />
       <workItem from="1716114900781" duration="78000" />
       <workItem from="1716115049008" duration="1779000" />
-      <workItem from="1716124772397" duration="987000" />
+      <workItem from="1716124772397" duration="2126000" />
     </task>
     <task id="LOCAL-00001" summary="第一次尝试commit">
       <created>1716124865407</created>
@@ -91,7 +94,21 @@
       <option name="project" value="LOCAL" />
       <updated>1716125749407</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="第一次尝试commit">
+      <created>1716126011815</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716126011815</updated>
+    </task>
+    <task id="LOCAL-00007" summary="commit内容">
+      <created>1716126081214</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716126081214</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,7 +125,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="iteration2" />
+                        <option value="origin/iteration2" />
                       </list>
                     </value>
                   </entry>
@@ -122,6 +139,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="第一次尝试commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="第一次尝试commit" />
+    <MESSAGE value="commit内容" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit内容" />
   </component>
 </project>
