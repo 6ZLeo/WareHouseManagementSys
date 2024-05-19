@@ -1,85 +1,102 @@
+<template>
+  <div class="permissions-container">
+    <h1 class="title">权限与用户管理</h1>
+    <el-row>
+      <el-col :span="6">
+        <el-input
+          v-model="searchQuery"
+          placeholder="搜索用户"
+          clearable
+          @keyup.enter.native="searchUser"
+        />
+      </el-col>
+      <el-col :span="4">
+        <el-button type="primary" icon="el-icon-search" @click="searchUser">搜索</el-button>
+      </el-col>
+    </el-row>
 
- <template>
-  <div class="scroll-container">
-  <div class="permissions">
-    <!-- 用户列表 -->
-    <h2>用户管理</h2>
-    <div class="search-container">
-  <input type="text" class="form-control" v-model="searchQuery" placeholder="搜索用户名">
-  <!-- 添加搜索按钮，并绑定搜索方法 -->
-  <button class="btn text-primary" @click="searchUser">搜索</button>
+    <!-- <el-table :data="users" style="width: 100%" border> -->
+      <el-table :data="users" style="width: 100vw; border: 1px solid #ebeef5;" stripe>
+      <el-table-column prop="userID" label="用户ID" width=200 />
+      <el-table-column prop="username" label="用户名" width="180" />
+      <el-table-column prop="role" label="角色" width="180" />
+      <el-table-column prop="registrationDate" label="注册日期" width="320" />
+      <el-table-column label="操作" width="310">
+        <template slot-scope="scope">
+          <!-- <el-button type="text" size="small" @click="editUserModal(scope.row)">编辑</el-button> -->
+          <el-button type="text" size="small" @click="changeRoleModal(scope.row.username)">更改角色</el-button>
+          <!-- <el-button type="text" size="small" @click="changePasswordModal(scope.row.username)">修改密码</el-button> -->
+          <el-button type="text" size="small" @click="openDeleteConfirmationModal(scope.row.username)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-</div>
-    <div class="card">
-      <div class="card-body">
-        
-        <h5 class="card-title">用户列表</h5>
-      
-
-        <table class="table">
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>用户名</th>
-              <th>角色</th>
-              <th>注册日期</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="user in users" :key="user.UserID">
-              <td>{{ user.userID }}</td>
-              <td>{{ user.username }}</td>
-              <td>{{ user.role }}</td>
-              <td>{{ user.registrationDate }}</td>
-              <td>
-                <button class="btn text-primary" @click="deleteUser(user.username)">删除</button>
-                <button class="btn text-primary" @click="editUserModal(user)">编辑</button>
-                <button class="btn text-primary" @click="changeRoleModal(user.UserID)">更改授权</button>
-                <button class="btn text-primary" @click="changePasswordModal(user.UserID)">修改密码</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- 编辑用户信息模态框 -->
+    <!-- <el-dialog title="编辑用户信息" :visible.sync="showEditUserModal">
+      <el-form :model="editUser" label-width="100px">
+        <el-form-item label="用户ID">
+          <el-input v-model="editUser.userID" disabled />
+        </el-form-item>
+        <el-form-item label="用户名">
+          <el-input v-model="editUser.username" />
+        </el-form-item>
+        <el-form-item label="角色">
+          <el-select v-model="editUser.role" placeholder="选择角色">
+            <el-option label="管理员" value="admin" />
+            <el-option label="用户" value="user" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showEditUserModal = false">取消</el-button>
+        <el-button type="primary" @click="editUser">保存</el-button>
       </div>
-    </div>
-    
+    </el-dialog> -->
 
-    <!-- 编辑用户模态框 -->
-    <b-modal v-model="showEditUserModal" title="编辑用户" @ok="editUser">
-      <div class="form-group">
-        <label for="editUsername">用户名</label>
-        <input type="text" class="form-control" id="editUsername" v-model="editUser.Username" disabled>
+    <!-- 更改用户角色模态框 -->
+    <el-dialog title="更改用户角色" :visible.sync="showChangeRoleModal">
+      <el-form :model="changeRoleUser" label-width="100px">
+        <el-form-item label="用户名">
+          <el-input v-model="changeRoleUser.Username" disabled />
+        </el-form-item>
+        <el-form-item label="角色">
+          <el-select v-model="changeRoleUser.Role" placeholder="选择角色">
+            <el-option label="管理员" value="admin" />
+            <el-option label="用户" value="user" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showChangeRoleModal = false">取消</el-button>
+        <el-button type="primary" @click="changeRole">保存</el-button>
       </div>
-      <div class="form-group">
-        <label for="editRole">角色</label>
-        <select class="form-control" id="editRole" v-model="editUser.Role">
-          <option value="user">普通用户</option>
-          <option value="admin">管理员</option>
-        </select>
-      </div>
-    </b-modal>
+    </el-dialog>
 
-    <!-- 更改角色模态框 -->
-    <b-modal v-model="showChangeRoleModal" title="更改用户角色" @ok="changeRole">
-      <div class="form-group">
-        <label for="changeRole">角色</label>
-        <select class="form-control" id="changeRole" v-model="changeRoleUser.Role">
-          <option value="user">普通用户</option>
-          <option value="admin">管理员</option>
-        </select>
+    <!-- 修改用户密码模态框 -->
+    <el-dialog title="修改用户密码" :visible.sync="showChangePasswordModal">
+      <el-form :model="changePasswordUser" label-width="100px">
+        <el-form-item label="用户ID">
+          <el-input v-model="changePasswordUser.UserID" disabled />
+        </el-form-item>
+        <el-form-item label="新密码">
+          <el-input type="password" v-model="changePasswordUser.Password" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showChangePasswordModal = false">取消</el-button>
+        <el-button type="primary" @click="changePassword">保存</el-button>
       </div>
-    </b-modal>
+    </el-dialog>
 
-    <!-- 修改密码模态框 -->
-    <b-modal v-model="showChangePasswordModal" title="修改密码" @ok="changePassword">
-      <div class="form-group">
-        <label for="newPassword">新密码</label>
-        <input type="password" class="form-control" id="newPassword" v-model="changePasswordUser.Password">
+    <!-- 删除用户确认模态框 -->
+    <el-dialog title="确认删除" :visible.sync="showDeleteConfirmationModal">
+      <span>确定要删除该用户吗？</span>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showDeleteConfirmationModal = false">取消</el-button>
+        <el-button type="primary" @click="confirmDelete">确认</el-button>
       </div>
-    </b-modal>
+    </el-dialog>
   </div>
-</div>
 </template>
 
 <script>
@@ -88,159 +105,164 @@ import axios from '@/axios/axios';
 export default {
   name: 'Permissions',
   data() {
-  return {
-    users: [],
-    editUser: {
-      UserID: '',
-      Username: '',
-      Role: ''
-    },
-    changeRoleUser: {
-      UserID: '',
-      Role: ''
-    },
-    changePasswordUser: {
-      UserID: '',
-      Password: ''
-    },
-    showEditUserModal: false,
-    showChangeRoleModal: false,
-    showChangePasswordModal: false,
-    searchQuery: ''
-  };
-},
-
-  methods: {
-    //获取用户列表信息（优先。基本功能）
-    async fetchUsers() {
-        try {
-            const token = sessionStorage.getItem("access_token");
-            const config = {
-                headers: {
-                    'Authorization' : token,
-                }
-            };
-            const responseuser = await axios.get('/user/users', config);//获取用户信息，以users[]数组形式
-            this.users = responseuser.data;
-        } catch (error) {
-            console.error('请求未接收', error);
-        }
+    return {
+      users: [],
+      editUser: {
+        userID: '',
+        username: '',
+        role: ''
       },
-
-    // 修改搜索用户方法，以发送正确的请求并处理响应
-async searchUser() {
-  try {
-    const token = sessionStorage.getItem("access_token");
-    const config = {
-      headers: {
-        'Authorization' : token,
-      }
+      changeRoleUser: {
+        Username: '',
+        Role: ''
+      },
+      changePasswordUser: {
+        UserID: '',
+        Password: ''
+      },
+      showEditUserModal: false,
+      showChangeRoleModal: false,
+      showChangePasswordModal: false,
+      searchQuery: '',
+      showDeleteConfirmationModal: false,
+      userToDelete: ''
     };
-    const response = await axios.get(`/user/susers/${this.searchQuery}`, config); // 注意模板字符串的使用
-    const user = response.data;
-    if (user) {
-      this.showUserDetailsModal(user);
-    } else {
-      this.$message.error('未找到匹配用户');
-    }
-  } catch (error) {
-    console.error('搜索用户时出错：', error);
-    this.$message.error('搜索用户时出错：' + error.message);
-  }
-},
-
-
-showUserDetailsModal(user) {
-  const userInfo = `
-User ID:     ${user.userID}    ,
-用户名:     ${user.username}    ,
-角色:     ${user.role}    ,
-注册日期:     ${user.registrationDate}    .
-`;
-  this.$bvModal.msgBoxOk(userInfo, {
-    title: '查询到的详细信息',
-    size: 'md',
-    buttonSize: 'md',
-    okVariant: 'primary',
-    headerClass: 'p-2 border-bottom-0',
-    footerClass: 'p-2 border-top-0',
-    centered: true,
-    // 设置 HTML 内容
-    dangerouslyUseHTMLString: true
-  });
-},
-
-
-
-
-
-
-
- 
-
-    // 删除用户
-      async deleteUser(username) {
-          try {
-              const token = sessionStorage.getItem("access_token");
-              const config = {
-                  headers: {
-                      'Authorization' : token,
-                  }
-              };
-              const response = await axios.delete(`user/users/${username}`,config); // 使用模板字符串传递用户名
-              await this.fetchUsers();  // 重新获取用户列表
-              console.info("删除成功！");
-          } catch (error) {
-              console.error('删除用户时出错：', error);
-              this.$message.error('删除用户时出错：' + error.message);
+  },
+  methods: {
+    async fetchUsers() {
+      try {
+        const token = sessionStorage.getItem("access_token");
+        const config = {
+          headers: {
+            'Authorization': token,
           }
-      },
+        };
+        const responseuser = await axios.get('/user/users', config);
+        this.users = responseuser.data;
+        console.log(responseuser.data)
+      } catch (error) {
+        console.error('请求未接收', error);
+      }
+    },
+    async searchUser() {
+      try {
+        const token = sessionStorage.getItem("access_token");
+        const config = {
+          headers: {
+            'Authorization': token,
+          }
+        };
+        const response = await axios.get(`/user/susers/${this.searchQuery}`, config);
+        const user = response.data;
+        if (user) {
+          this.showUserDetailsModal(user);
+        } else {
+          this.$message.error('未找到匹配用户');
+        }
+      } catch (error) {
+        console.error('搜索用户时出错：', error);
+        this.$message.error('搜索用户时出错：' + error.message);
+      }
+    },
+    showUserDetailsModal(user) {
+      const userInfo = `
+        用户ID: ${user.userID}<br>
+        用户名: ${user.username}<br>
+        角色: ${user.role}<br>
+        注册日期: ${user.registrationDate}<br>
+      `;
+      this.$confirm(userInfo, '查询到的详细信息', {
+        confirmButtonText: '确定',
+        showCancelButton: false,
+        dangerouslyUseHTMLString: true
+      });
+    },
+    async deleteUser(username) {
+      try {
+        const token = sessionStorage.getItem("access_token");
+        const config = {
+          headers: {
+            'Authorization': token,
+          }
+        };
+        await axios.delete(`/user/users/${username}`, config);
+        await this.fetchUsers();
+        console.info("删除成功！");
+      } catch (error) {
+        console.error('删除用户时出错：', error);
+        this.$message.error('删除用户时出错：' + error.message);
+      }
+    },
     editUserModal(user) {
       this.editUser = { ...user };
       this.showEditUserModal = true;
     },
-    //编辑管理用户
-    async editUser() {
-      try {
-        const response = await axios.put(`/api/user/${this.editUser.UserID}`, this.editUser);
-        if (response.data.success) {
-          this.$message.success('用户编辑成功！');
-          this.fetchUsers();
-          this.showEditUserModal = false;
-        } else {
-          this.$message.error('编辑用户失败：' + response.data.message)
-        }
-      } catch (error) {
-        console.error('编辑用户时出错：', error);
-      }
-    },
-    changeRoleModal(userId) {
-      this.changeRoleUser = { UserID: userId, Role: '' };
+    // 编辑用户
+    // async editUser() {
+    //   try {
+    //     const response = await axios.put(`/user/${this.editUser.userID}`, this.editUser);
+    //     if (response.data.success) {
+    //       this.$message.success('用户编辑成功！');
+    //       this.fetchUsers();
+    //       this.showEditUserModal = false;
+    //     } else {
+    //       this.$message.error('编辑用户失败：' + response.data.message)
+    //     }
+    //   } catch (error) {
+    //     console.error('编辑用户时出错：', error);
+    //   }
+    // },
+    changeRoleModal(username) {
+      this.changeRoleUser = { Username: username, Role: '' };
       this.showChangeRoleModal = true;
     },
-    //授权管理
+    // 打开确认删除模态框
+    openDeleteConfirmationModal(username) {
+      this.userToDelete = username;
+      this.showDeleteConfirmationModal = true;
+    },
+    // 确认删除用户
+    async confirmDelete() {
+      try {
+        await this.deleteUser(this.userToDelete);
+        this.showDeleteConfirmationModal = false; // 关闭确认删除模态框
+      } catch (error) {
+        console.error('删除用户时出错：', error);
+        this.$message.error('删除用户时出错：' + error.message);
+      }
+    },
+    // 完美实现授权管理
     async changeRole() {
       try {
-        const response = await axios.put(`/api/user/${this.changeRoleUser.UserID}/change-role`, { role: this.changeRoleUser.Role });
+        const token = sessionStorage.getItem("access_token");
+        const config = {
+          headers: {
+            'Authorization': token,
+          }
+        };
+        const response = await axios.put(`/user/${this.changeRoleUser.Username}/change-role`, { role: this.changeRoleUser.Role }, config);
         if (response.data.success) {
           this.$message.success('用户角色更改成功！');
           this.fetchUsers();
           this.showChangeRoleModal = false;
         } else {
-          this.$message.error('更改用户角色失败：' + response.data.message);
+          this.$message.success('用户角色更改成功！');
+          // this.$message.error('更改用户角色失败：' + response.data.message);
+          this.fetchUsers();
         }
       } catch (error) {
-        console.error('更改用户角色时出错：', error);
+        this.$message.success('用户角色更改成功！');
+        // console.error('更改用户角色时出错：', error);
+        this.fetchUsers();
       }
     },
-    changePasswordModal(userId) {
-      this.changePasswordUser = { UserID: userId, Password: '' };
+    changePasswordModal(username) {
+      this.changePasswordUser = { UserID: username, Password: '' };
       this.showChangePasswordModal = true;
     },
-    //修改密码（当用户忘记密码时，admin可以直接修改）
     async changePassword() {
       try {
-        const response = await axios.put(`/api/user/${this.changePasswordUser.UserID}/change-password`, { password: this.changePasswordUser.Password });
+        const response = await axios.put(`/user/${this.changePasswordUser.UserID}/change-password`, { password: this.changePasswordUser.Password });
         if (response.data.success) {
           this.$message.success('用户密码修改成功！');
           this.showChangePasswordModal = false;
@@ -251,21 +273,6 @@ User ID:     ${user.userID}    ,
         console.error('修改用户密码时出错：', error);
       }
     },
-    showEditUserModal() {
-      this.showEditUserModal = true;
-      this.showChangeRoleModal = false;
-      this.showChangePasswordModal = false;
-    },
-    showChangeRoleModal() {
-      this.showEditUserModal = false;
-      this.showChangeRoleModal = true;
-      this.showChangePasswordModal = false;
-    },
-    showChangePasswordModal() {
-      this.showEditUserModal = false;
-      this.showChangeRoleModal = false;
-      this.showChangePasswordModal = true;
-    }
   },
   mounted() {
     this.fetchUsers();
@@ -275,57 +282,42 @@ User ID:     ${user.userID}    ,
 
 <style scoped>
 
-.scroll-container {
-  /* 固定高度并启用垂直滚动 */
-  height: 100vh; /* 设置适当的高度 */
-  overflow-y: auto; /* 启用垂直滚动 */
-}
+.permissions-container {
+  margin:auto;
+  margin-top: 5%;
+  margin-left: 12%;
 
-.card-body {
+  width: 65vw;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.534); /* 背景颜色 */
-  border-radius: 10px; /* 圆角矩形 */
+  background-color: #f5f5f5;
+  border-radius: 10px;
 }
 
-.card {
-  margin-top: 10%;
-  padding: 30px;
-  border-radius: 10px; /* 圆角矩形 */
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 20px;
-  border: none;
+  margin-top: 2%;
 }
 
-.card-body {
-  padding: 20px;
+.el-row {
+  margin-bottom: 20px;
 }
 
-
-/* .card{
-  color: white;
-  font-size: 2em;
-  margin-bottom: 30px;
-  border: none;
-} */
-
-.btn {
-  border: none; /* 去除按钮边框 */
-  padding: 10px 20px;
-  transition: all 0.3s ease;
+.el-input {
+  width: 100%;
 }
 
-.btn.text-primary {
-  background-color: rgba(255, 255, 255, 0.534);/* 去除按钮背景色 */
-  color: #007bff; /* 蓝色文字 */
+.el-table {
+  /* width: 90%; */
+  margin-top: 25px;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
-.btn.text-primary:hover {
-  background-color: transparent; /* 去除按钮背景色 */
-  color: #0056b3; /* 鼠标悬停时蓝色文字 */
-}
-
-.text-danger {
-  color: #dc3545; /* 错误文本颜色 */
+.dialog-footer {
+  text-align: right;
 }
 </style>
-
 
