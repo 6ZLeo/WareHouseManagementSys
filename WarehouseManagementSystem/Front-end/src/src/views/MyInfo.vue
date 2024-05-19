@@ -1,60 +1,54 @@
-<!-- Myinfo.vue -->
 <template>
-  <div class="scroll-container">
-  <!-- 个人信息页面容器 -->
-  <div class="my-info">
-    <h2>个人信息</h2>
-    <!-- 基本信息卡片 -->
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">基本信息</h5>
-        <p class="card-text">姓名：{{ userInfo.username }}</p>
-        <p class="card-text">角色：{{ userInfo.role }}</p>
-        <!-- <p class="card-text">注册日期：{{ userInfo.registrationDate }}</p> -->
+  <div class="setting-container">
+    <h1 class="setting-title">个人信息</h1>
+    <br>
+    <div class="user-info">
+      <div class="user-avatar">
+        <img :src="userAvatar" alt="Avatar">
+      </div>
+      <div class="user-details">
+        <div class="user-detail">
+          <label>用户名：</label>
+          <span>{{ userInfo.username }}</span>
+        </div>
+        <div class="user-detail">
+          <label>角色：</label>
+          <span>{{ userInfo.role }}</span>
+        </div>
       </div>
     </div>
-    <!-- 修改密码卡片 -->
-    <div class="card mt-4">
-      <div class="card-body">
-        <h5 class="card-title">修改密码</h5>
-        <!-- 修改密码表单 -->
-        <form @submit.prevent="changePassword">
-          <div class="form-group">
-            <label for="currentPassword">当前密码</label>
-            <input type="password" class="form-control" id="currentPassword" v-model="currentPassword">
-          </div>
-          <div class="form-group">
-            <label for="newPassword">新密码</label>
-            <input type="password" class="form-control" id="newPassword" v-model="newPassword">
-          </div>
-          <div class="form-group">
-            <label for="confirmPassword">确认新密码</label>
-            <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword">
-          </div>
-          <!-- 确认修改按钮 -->
-          <button type="submit" class="btn btn-primary" @click="loading">确认修改</button>
-        </form>
-        <!-- 错误提示 -->
-        <p v-if="error" class="text-danger mt-2">{{ error }}</p>
+    <br>
+    <div class="password-form">
+      <h1 class="setting-title">修改密码</h1>
+      <label>当前密码：</label>
+      <el-input v-model="currentPassword" type="password" placeholder="请输入当前密码"></el-input>
+      <label>新密码：</label>
+      <el-input v-model="newPassword" type="password" placeholder="请输入新密码"></el-input>
+      <label>确认新密码：</label>
+      <el-input v-model="confirmPassword" type="password" placeholder="请确认新密码"></el-input>
+      <div class="button-container">
+        <el-button type="primary" @click="updatePassword" :loading="loading">{{ loading ? '保存中...' : '保存' }}</el-button>
+        <span class="setting-error">{{ error }}</span>
       </div>
     </div>
-    <!-- 退出登录按钮 -->
-    <div class="mt-4">
-      <button class="btn btn-danger" @click="logout">退出登录</button>
+    <div class="logout-button">
+      <el-button type="danger" @click="logout">退出登录</el-button>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-// import axios from 'axios';
-import axios from '@/axios/axios';
+import axios from 'axios';
 
 export default {
-  name: 'MyInfo',
+  name: 'Setting',
   data() {
     return {
-      userInfo: {}, // 用户信息
+      userInfo: {
+        username: '',
+        role: ''
+      },
+      userAvatar: '', // 用户头像 URL
       currentPassword: '', // 当前密码
       newPassword: '', // 新密码
       confirmPassword: '', // 确认新密码
@@ -64,32 +58,68 @@ export default {
   },
   mounted() {
     this.fetchUserInfo();
+    this.fetchUserAvatar();
   },
   methods: {
-    // 获取用户信息
     async fetchUserInfo() {
       try {
-        // 从SessionStorage中获取用户名和角色
+        // 模拟从 SessionStorage 中获取用户名和角色
         const username = sessionStorage.getItem("login_username");
         const role = sessionStorage.getItem("login_role");
-
-        // 创建一个新的userInfo对象，将获取的数据赋值给它
-        this.userInfo = {
-          username: username,
-          role: role
-        };
+        this.userInfo = { username, role };
       } catch (error) {
         console.error('Error fetching user info:', error);
       }
     },
-
-    // 退出登录
+    async fetchUserAvatar() {
+      try {
+        // 模拟从 SessionStorage 中获取用户头像 URL
+        const userAvatar = sessionStorage.getItem("user_avatar");
+        this.userAvatar = userAvatar ? userAvatar : ''; // 如果用户头像 URL 存在则赋值，否则为空字符串
+      } catch (error) {
+        console.error('Error fetching user avatar:', error);
+      }
+    },
+    async updatePassword() {
+      try {
+        // 检查新密码和确认密码是否一致
+        if (this.newPassword !== this.confirmPassword) {
+          this.error = '新密码和确认密码不匹配';
+          return;
+        }
+        this.loading = true;
+        // 发送更新密码请求
+        const token = sessionStorage.getItem("access_token");
+        const config = {
+          headers: {
+            'Authorization' : token,
+          }
+        };
+        const response = await axios.post('/user/update-password', {
+          currentPassword: this.currentPassword,
+          newPassword: this.newPassword
+        }, config);
+        if (response.data.code === 200) {
+          this.error = '';
+          this.$message.success('密码更新成功');
+          this.currentPassword = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+        } else {
+          this.error = response.data.message;
+        }
+      } catch (error) {
+        console.error('Error updating password:', error);
+        this.error = '更新密码失败';
+      } finally {
+        this.loading = false;
+      }
+    },
     async logout() {
       // 清除sessionStorage中的用户信息
       sessionStorage.removeItem("login_username");
       sessionStorage.removeItem("login_role");
       sessionStorage.removeItem("access_token");
-
       // 跳转到登录界面
       this.$router.push('/login');
     }
@@ -98,58 +128,79 @@ export default {
 </script>
 
 <style scoped>
-
-.scroll-container {
-  /* 固定高度并启用垂直滚动 */
-  height: 100vh; /* 设置适当的高度 */
-  overflow-y: auto; /* 启用垂直滚动 */
+.setting-container {
+  width: 65vw;
+  margin-left: 12%;
+  margin-top: 3%;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.my-info {
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.534); /* 背景颜色 */
-  border-radius: 10px; /* 圆角矩形 */
-
+.setting-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
 }
 
-.card {
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.185); /* 卡片背景颜色 */
-  border-radius: 10px; /* 圆角矩形 */
+.user-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-avatar img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 30px;
+  border: 2px solid #eee;
+}
+
+.user-details {
+  text-align: left;
+}
+
+.user-detail {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.password-form {
+  text-align: left;
+  max-width: 600px;
+  margin: auto;
+}
+
+.password-form label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.el-input {
+  width: 100%;
   margin-bottom: 20px;
 }
 
-.card-body {
-  padding: 20px;
+.button-container {
+  text-align: center;
+  margin-top: 20px;
 }
 
-.btn {
-  border-radius: 20px; /* 圆角矩形按钮 */
-  padding: 10px 20px;
-  transition: all 0.3s ease;
+.setting-error {
+  color: red;
+  display: block;
+  margin-top: 10px;
 }
 
-.btn-primary {
-  background-color: #007bff; /* 主要按钮背景色 */
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3; /* 鼠标悬停时按钮背景色 */
-}
-
-.btn-danger {
-  background-color: #dc3545; /* 危险按钮背景色 */
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: #bd2130; /* 鼠标悬停时按钮背景色 */
-}
-
-.text-danger {
-  color: #dc3545; /* 错误文本颜色 */
+.logout-button {
+  text-align: center;
+  margin-top: 30px;
 }
 </style>
-
-  
