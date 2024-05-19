@@ -42,7 +42,7 @@ public class ProductController {
     @PostMapping("/api/products/stock/out")
     public String stockOutProduct(@RequestParam String productName, @RequestParam String specification, @RequestParam Integer quantity) {
         productService.stockOutProduct(productName, specification, quantity);
-        return "产品出库成功";
+        return "产品出库成功了";
     }
 
 
