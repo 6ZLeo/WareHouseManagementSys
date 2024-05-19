@@ -35,7 +35,7 @@ public class ProductController {
         System.out.println("运行到入库这里了"+productName+specification+quantity);
         productService.stockInProduct(productName, specification, quantity);
         System.out.println("运行到入库这里了"+productName+specification+quantity);
-        return "产品入库成功";
+        return "产品入库成功了";
     }
 
     // 出库产品fdagadfads
