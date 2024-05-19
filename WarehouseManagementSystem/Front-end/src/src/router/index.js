@@ -40,11 +40,15 @@ const routes = [
       {
         path: 'notification',
         component: () => import('@/views/Notification.vue')
+      },
+      {
+        path: 'auto',
+        component: () => import('@/views/Auto.vue')
       }
-      
+
     ]
   },
-  
+
   {
     path: '*',
     redirect: '/login'
