@@ -24,6 +24,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+        working-directory: WarehouseManagementSystem/Back-end/src/main/erp
 
       - name: Copy files
         uses: appleboy/scp-action@master
@@ -31,7 +32,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
-          source: "target/*.jar"
+          source: "WarehouseManagementSystem/Back-end/src/main/erp/target/*.jar"
           target: "/path/to/deploy/directory"
 
 
@@ -42,5 +43,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
           script: |
-            cd /path/to/deploy/directory/target
-            java -jar StudentInfoSystem-0.0.1-SNAPSHOT.jar
+            cd /path/to/deploy/directory/WarehouseManagementSystem/Back-end/src/main/erp/target
+            java -jar erp-1.0.0-SNAPSHOT.jar
