@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public abstract class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private  UserRepository userRepository;
 
@@ -27,6 +27,7 @@ public abstract class UserServiceImpl implements UserService {
     }
     @Transactional
     public void deleteUser(String userName) {userRepository.deleteByUsername(userName);}
+
     @Transactional
     public User registerUser(User user) {
         user.setRegistrationDate(new Date());
