@@ -37,6 +37,23 @@ public class ProductServiceImpl implements ProductService {
         return "创建产品成功";
     }
 
+
+    @Override
+    public String stockOutProduct(String productName, String specification, Integer quantity) {
+        Optional<Product> productOptional = productRepository.findByProductNameAndSpecification(productName, specification);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            int newQuantity = product.getStockQuantity() - quantity;
+            if (newQuantity >= 0) {
+                product.setStockQuantity(newQuantity);
+                productRepository.save(product);
+                return "产品出库成功";
+            } else {
+                return "库存不足，无法出库";
+            }
+        }
+        return "未找到指定产品";
+    }
     @Override
     public String stockInProduct(String productName, String specification, Integer quantity) {
         // 尝试查找指定的产品
@@ -75,20 +92,4 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    @Override
-    public String stockOutProduct(String productName, String specification, Integer quantity) {
-        Optional<Product> productOptional = productRepository.findByProductNameAndSpecification(productName, specification);
-        if (productOptional.isPresent()) {
-            Product product = productOptional.get();
-            int newQuantity = product.getStockQuantity() - quantity;
-            if (newQuantity >= 0) {
-                product.setStockQuantity(newQuantity);
-                productRepository.save(product);
-                return "产品出库成功";
-            } else {
-                return "库存不足，无法出库";
-            }
-        }
-        return "未找到指定产品";
-    }
 }
