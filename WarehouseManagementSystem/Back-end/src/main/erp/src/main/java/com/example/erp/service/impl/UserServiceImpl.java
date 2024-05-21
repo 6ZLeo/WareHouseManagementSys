@@ -6,6 +6,7 @@ import com.example.erp.service.UserService;
 import com.example.erp.utils.UserDto;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     public User registerUser(User user) {
         user.setRegistrationDate(new Date());
         // 这里可以添加逻辑，例如检查用户名是否已存在等
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
 
