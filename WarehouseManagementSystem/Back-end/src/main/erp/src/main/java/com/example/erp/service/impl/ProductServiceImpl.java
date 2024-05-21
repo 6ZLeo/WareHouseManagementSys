@@ -5,6 +5,7 @@ import com.example.erp.entity.Product;
 import com.example.erp.entity.User;
 import com.example.erp.repository.InboundOrderRepository;
 import com.example.erp.repository.ProductRepository;
+import com.example.erp.repository.ShelfRepository;
 import com.example.erp.repository.UserRepository;
 import com.example.erp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ProductServiceImpl implements ProductService {
     private InboundOrderRepository inboundOrderRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ShelfRepository shelfRepository;
     @Override
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -38,6 +41,8 @@ public class ProductServiceImpl implements ProductService {
     public String stockInProduct(String productName, String specification, Integer quantity) {
         // 尝试查找指定的产品
         Optional<Product> productOptional = productRepository.findByProductNameAndSpecification(productName, specification);
+
+
 
         if (productOptional.isPresent()) {
             Product product = productOptional.get();

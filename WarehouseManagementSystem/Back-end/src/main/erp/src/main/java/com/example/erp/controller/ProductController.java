@@ -30,10 +30,7 @@ public class ProductController {
     // 入库产品
     @PostMapping("/api/products/stock/in")
     public String stockInProduct(@RequestParam String productName, @RequestParam String specification, @RequestParam Integer quantity) {
-
-        System.out.println("运行到入库这里了"+productName+specification+quantity);
         productService.stockInProduct(productName, specification, quantity);
-        System.out.println("运行到入库这里了"+productName+specification+quantity);
         return "产品入库成功";
     }
 
