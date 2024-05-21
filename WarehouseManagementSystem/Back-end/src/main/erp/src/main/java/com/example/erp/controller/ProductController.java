@@ -24,25 +24,21 @@ public class ProductController {
     @PostMapping("/api/products/create")
     public String createProduct(@RequestBody Product product) {
         productService.createProduct(product);
-        return "创建产品成功了";
+        return "创建产品成功";
     }
 
     // 入库产品
     @PostMapping("/api/products/stock/in")
-
     public String stockInProduct(@RequestParam String productName, @RequestParam String specification, @RequestParam Integer quantity) {
-
-        System.out.println("运行到入库这里了"+productName+specification+quantity);
         productService.stockInProduct(productName, specification, quantity);
-        System.out.println("运行到入库这里了"+productName+specification+quantity);
-        return "产品入库成功了";
+        return "产品入库成功";
     }
 
-    // 出库产品fdagadfads
+    // 出库产品
     @PostMapping("/api/products/stock/out")
     public String stockOutProduct(@RequestParam String productName, @RequestParam String specification, @RequestParam Integer quantity) {
         productService.stockOutProduct(productName, specification, quantity);
-        return "产品出库成功了";
+        return "产品出库成功";
     }
 
 

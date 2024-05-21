@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     public void deleteUser(String userName) {userRepository.deleteByUsername(userName);}
+
     @Transactional
     public User registerUser(User user) {
         user.setRegistrationDate(new Date());

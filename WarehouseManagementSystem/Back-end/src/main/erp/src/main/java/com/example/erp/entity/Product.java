@@ -2,15 +2,18 @@ package com.example.erp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Product")
 @Data
+@Accessors(chain = true)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ProductID")
     private Integer productID;
 
     @Column(name = "ProductName", nullable = false)

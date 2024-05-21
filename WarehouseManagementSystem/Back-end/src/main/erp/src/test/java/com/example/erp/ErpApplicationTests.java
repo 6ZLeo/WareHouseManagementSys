@@ -1,14 +1,22 @@
 package com.example.erp;
 
+import com.example.erp.entity.Product;
+import com.example.erp.entity.Shelf;
+import com.example.erp.repository.ShelfRepository;
+import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Base64;
+import java.util.Optional;
 
+// test1 linkai
 @SpringBootTest
 class ErpApplicationTests {
+    @Resource
+    private ShelfRepository shelfRepository;
 
     // BCryptPasswordEncoder是Spring Security提供的一个密码加密工具类
     @Test
@@ -32,6 +40,15 @@ class ErpApplicationTests {
             String s = split[i];
             byte[] decode = Base64.getDecoder().decode(s);
             System.out.println(new String(decode));
+        }
+    }
+
+    @Test
+    void shelfTest() {
+        Optional<Shelf> shelfOptional = shelfRepository.findByProduct(new Product().setProductID(1));
+        if (shelfOptional.isPresent()) {
+            Shelf shelf = shelfOptional.get();
+            System.out.println(shelf);
         }
     }
 }

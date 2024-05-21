@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f9c9eb1-28c8-4514-a73a-2a9750df3ab3" name="更改" comment="第一次尝试commit" />
+    <list default="true" id="f0ed6f3f-d2bd-47bc-9119-97a7fa37d00c" name="更改" comment="添加了shelf表，增添了shelf的查询方法">
+      <change beforePath="$PROJECT_DIR$/WarehouseManagementSystem/Back-end/src/main/erp/target/test-classes/com/example/erp/controller/ProductControllerTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/WarehouseManagementSystem/Back-end/src/main/erp/target/test-classes/com/example/erp/controller/ProductControllerTests.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -23,75 +34,199 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2gRtyyx426vTRBBhnXt0zS9Ilfl" />
+  <component name="ProjectId" id="2gRtzAYAz3u0klVfYA0jFWRkaAq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/GitRepository/WarehouseManagementSys&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/IDEA Project/WarehouseManagementSys",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "def6d90e829e50c63f98c387daecd138",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.ErpApplication">
+    <configuration name="ErpApplicationTests.shelfTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="erp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.erp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.erp" />
+      <option name="MAIN_CLASS_NAME" value="com.example.erp.ErpApplicationTests" />
+      <option name="METHOD_NAME" value="shelfTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTests.createProductTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="erp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.erp.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.erp.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.example.erp.controller.ProductControllerTests" />
+      <option name="METHOD_NAME" value="createProductTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTests.stockOutProductTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="erp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.erp.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.erp.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.example.erp.controller.ProductControllerTests" />
+      <option name="METHOD_NAME" value="stockOutProductTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTests.getUserByUsernameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="erp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.erp.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.erp.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.example.erp.controller.UserControllerTests" />
+      <option name="METHOD_NAME" value="getUserByUsernameTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTests.testDeleteUserByUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="erp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.erp.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.erp.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.example.erp.controller.UserControllerTests" />
+      <option name="METHOD_NAME" value="testDeleteUserByUsername" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ErpApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="erp" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.erp.ErpApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ErpApplicationTests.shelfTest" />
+        <item itemvalue="JUnit.UserControllerTests.testDeleteUserByUsername" />
+        <item itemvalue="JUnit.UserControllerTests.getUserByUsernameTest" />
+        <item itemvalue="JUnit.ProductControllerTests.createProductTest" />
+        <item itemvalue="JUnit.ProductControllerTests.stockOutProductTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
-      <changelist id="3f9c9eb1-28c8-4514-a73a-2a9750df3ab3" name="更改" comment="" />
-      <created>1715672475973</created>
+      <changelist id="f0ed6f3f-d2bd-47bc-9119-97a7fa37d00c" name="更改" comment="" />
+      <created>1715672478179</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1715672475973</updated>
-      <workItem from="1715672484360" duration="1250000" />
-      <workItem from="1716114900781" duration="78000" />
-      <workItem from="1716115049008" duration="1779000" />
-      <workItem from="1716124772397" duration="987000" />
+      <updated>1715672478179</updated>
+      <workItem from="1715672480518" duration="1216000" />
+      <workItem from="1716021290803" duration="31000" />
+      <workItem from="1716084567369" duration="6514000" />
+      <workItem from="1716091127684" duration="1741000" />
+      <workItem from="1716105540590" duration="4280000" />
+      <workItem from="1716122095008" duration="261000" />
+      <workItem from="1716170632325" duration="1575000" />
+      <workItem from="1716208306572" duration="4287000" />
     </task>
-    <task id="LOCAL-00001" summary="第一次尝试commit">
-      <created>1716124865407</created>
+    <task id="LOCAL-00001" summary="linkai 注释">
+      <option name="closed" value="true" />
+      <created>1715672673519</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1716124865407</updated>
+      <updated>1715672673519</updated>
     </task>
-    <task id="LOCAL-00002" summary="第一次尝试commit">
-      <created>1716124882917</created>
+    <task id="LOCAL-00002" summary="commit linkai">
+      <option name="closed" value="true" />
+      <created>1715673500897</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1716124882917</updated>
+      <updated>1715673500897</updated>
     </task>
-    <task id="LOCAL-00003" summary="第一次尝试commit">
-      <created>1716125414223</created>
+    <task id="LOCAL-00003" summary="commit linkai">
+      <option name="closed" value="true" />
+      <created>1715673535413</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1716125414223</updated>
+      <updated>1715673535413</updated>
     </task>
-    <task id="LOCAL-00004" summary="第一次尝试commit">
-      <created>1716125434451</created>
+    <task id="LOCAL-00004" summary="更新了 ProductController的单元测试">
+      <option name="closed" value="true" />
+      <created>1716090323274</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1716125434451</updated>
+      <updated>1716090323274</updated>
     </task>
-    <task id="LOCAL-00005" summary="第一次尝试commit">
-      <created>1716125749407</created>
+    <task id="LOCAL-00005" summary="更新了 ProductController的单元测试">
+      <option name="closed" value="true" />
+      <created>1716094476664</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1716125749407</updated>
+      <updated>1716094476664</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="添加了shelf表，增添了shelf的查询方法">
+      <created>1716259480450</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716259480450</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,7 +243,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="iteration2" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -121,7 +256,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="第一次尝试commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="第一次尝试commit" />
+    <MESSAGE value="linkai 注释" />
+    <MESSAGE value="commit linkai" />
+    <MESSAGE value="更新了 ProductController的单元测试" />
+    <MESSAGE value="添加了shelf表，增添了shelf的查询方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加了shelf表，增添了shelf的查询方法" />
   </component>
 </project>
